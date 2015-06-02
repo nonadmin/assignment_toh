@@ -31,7 +31,10 @@ end
 
 
 def legal_move(from,to)
-  if @towers[to].empty?
+  if @towers[from].empty?
+    system "clear"
+    puts "Nothing to move"
+  elsif @towers[to].empty?
     move_disk(from,to)
   elsif @towers[from][-1] < @towers[to][-1]
     move_disk(from,to)
@@ -42,7 +45,7 @@ def legal_move(from,to)
 end
 
 
-def new(height=3)
+def setup_game(height)
   system "clear"
   tower1 = (1..height).to_a.reverse
   tower2 = []
@@ -66,31 +69,31 @@ def play
 
   until player_won?
 
-    print "\n"
-    print "\n"
-    print @towers[1]
-    print "\n"
-    print @towers[2]
-    print "\n"
-    print @towers[3]
-    print "\n"
-
-    # (@height-1).downto(0) do |disk|
-    #   (1..3).each do |tower_num|
-    #     if @towers[tower_num][disk].nil?
-    #       print " " * @height
-    #     else
-    #       print ("o" * @towers[tower_num][disk]).rjust(@height)
-    #     end
-    #     print " | "
-    #   end
-    #   print "\n"
-    # end
+    (@height-1).downto(0) do |disk|
+      (1..3).each do |tower_num|
+        if @towers[tower_num][disk].nil?
+          print " " * @height
+        else
+          print ("o" * @towers[tower_num][disk]).rjust(@height)
+        end
+        print " | "
+      end
+      print "\n"
+    end
 
     valid_input
 
   end
 end
 
-height = ARGV[0].to_i
-new(height)
+def start
+  if ARGV.empty?
+    height = 3
+  else
+    height = ARGV[0].to_i
+  end
+
+  setup_game(height)
+end
+
+start
