@@ -78,7 +78,7 @@ def valid_input
   from_input = input[0].to_i
   to_input = input[-1].to_i
 
-  if from_input.between?(1,3) && from_input.between?(1,3)
+  if from_input.between?(1,3) && to_input.between?(1,3)
     return [from_input, to_input]
   elsif input == "q"
     return "quit"
